@@ -1,20 +1,31 @@
+import java.util.Random;
+
 public class MagicBox<T> {
+    T[] items;
 
-    private T number;
-
-    public MagicBox(T number) {
-        this.number = number;
-    }
-
-    public T getNuber() {
-        return number;
+    public MagicBox() {
+        this.items = (T[]) new Object[4];
     }
 
     boolean add(T item) {
-        return true;
+        for (int i = 0; i < items.length; i++) {
+            if (items[i] == null) {
+                items[i] = item;
+                return true;
+            }
+        }
+        return false;
     }
 
     T pick() {
-        return null;
+        for (int i = 0; i < items.length; i++) {
+            if (items[i] == null) {
+                throw new RuntimeException("коробка не полна, осталось ещё "
+                        + (items.length - i) + " ячеек заполнить");
+            }
+        }
+        Random random = new Random();
+        int randomInt = random.nextInt(items.length);
+        return items[randomInt];
     }
 }
